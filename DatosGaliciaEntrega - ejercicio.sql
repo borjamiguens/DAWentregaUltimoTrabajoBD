@@ -430,19 +430,18 @@ DELIMITER //
         BEFORE UPDATE ON Datos 
         FOR EACH ROW
         BEGIN        
-			#INSERT INTO Datos_Modificados	
-				#VALUES (old.idDatos, old.Provincia, old.Comarca, old.Concello, old.Superficie, old.Mujeres, old.Hombres);
-			UPDATE Datos_Modificados			
-				SET Provincia =old.Provincia, Comarca = old.Comarca, Concello = old.Concello, Superficie = old.Superficie, Mujeres = old.Mujeres, Hombres = old.Hombres	WHERE idDAtos = old.idDatos;             	
+			INSERT INTO Datos_Modificados	
+				VALUES (old.idDatos, old.Provincia, old.Comarca, old.Concello, old.Superficie, old.Mujeres, old.Hombres);
+			             	
         END
     // DELIMITER ;
 
 #llamada a procedimiento que active trigger   
-CALL CorregirSuperficie('Rizanxo', 70.0);
+#CALL CorregirSuperficie('Rizanxo', 80.0);
 
 #comprobaciones
-SELECT * FROM Datos WHERE concello='Rizanxo';
-SELECT * FROM Datos_Modificados;
+#SELECT * FROM Datos WHERE concello='Rizanxo';
+#SELECT * FROM Datos_Modificados;
 
 #------------------------------------------------------------------------
 #	TRIGGER PARA QUE CADA VEZ QUE BORREMOS UNA TUPLA LA GUARDE EN LA TABLA Datos_Borrados
